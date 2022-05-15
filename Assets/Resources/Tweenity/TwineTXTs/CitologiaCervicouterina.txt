@@ -1,0 +1,264 @@
+:: StoryTitle
+Citología Cervicouterina 2.0
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Interacción inicial con la paciente[start]
+La citología cervicuterina es un estudio de tamización de cancer de cuello uterino o enfermedades del cuello uterino.
+El procedimiento se lleva a cabo con el fin de detectar enfermedades premalignas del cuello uterino o cáncer de cuello uterino.
+
+Como primer paso, el usuario debe identificar a la paciente. 
+
+@
+
+[[Reconocimiento de la paciente]]
+
+{
+
+}
+<
+Personaje1Controller.MirarJugador(true)
+BotonIniciar.Oprimido()
+>
+
+:: Preparación para el procedimiento[timeout]
+En este paso el personal de la salud deberá tomar medidas de bioseguridad, colocarse los elementos del procedimiento y verificar que todos los elemetos para el procedimiento estén.
+
+- Guantes
+- Careta
+- Espéculo
+- Espátulas
+- Laminillas
+- Gel fijador
+Todos estos elementos se encontrarán disponibles.
+
+[[Inicio del procedimiento]]
+
+:: Estudio de tamizaje (rutina)
+Detección de cáncer de cuello terino.
+
+Doctor: "Vamos a realizar un estudio de tamizaje.
+Por favor diríjase a la camilla."
+
+
+[[Pasar paciente a la camilla e indicar la posición]]
+
+
+:: Inicio del procedimiento[dialogue]
+Inspección de labios menores y mayores de la zona perineal.
+
+Doctor: "Por favor separe las piernas."
+
+Se observa que no hayan lesiones que impidan el procedimiento o lesiones que sugieran enfermedad.
+
+
+[[Técnica de la toma de la muestra]]
+
+:: Control enfermedad previa
+Control de una paciente enferma.
+
+Doctor: "Vamos a realizar un control de enfermedad.
+Por favor diríjase a la camilla."
+
+
+[[Pasar paciente a la camilla e indicar la posición]]
+
+:: Pasar paciente a la camilla e indicar la posición[reminder]
+La paciente pasa a la camilla, se acomoda en posición ginecológica.
+Comienza la preparación de la pacienta.
+
+@
+[[Preparación para el procedimiento]]
+{
+Simulator.ShowReminder(1;CamaDePaciente;"")
+CamaDePaciente.IniciarProcedimiento()
+}
+<>
+
+:: Técnica de la toma de la muestra
+Se hace una revisión
+
+[[1. Separación de los labios]]
+
+:: 1. Separación de los labios
+Después de revisada la parte superficial de la vagína se procede a separar los labios para preparar el ingreso del especulo.
+
+
+[[Acomodar el espéculo a la base del introito vaginal]] 
+
+:: Se gira y se abre el espéculo
+Se introduce todo el epéculo, se abre y se gira para separar las partes del cuello uterino. 
+
+[[Fijación del cuello y visualización]] 
+
+:: Fijación del cuello y visualización
+Se deja fijo en una posición y en una apertura para poder visualizar todo el interior de la cavidad del cuello, se revisa que no exista ningún cuerpo, leción o condición extraña.
+
+Se hace una anotación en la hoja de datos.
+
+
+[[Toma de la muestra endocervical con las dos espátulas]]
+
+:: Toma de la muestra endocervical con las dos espátulas
+Se utilizan los dos tipos de espátulas para raspar las paredes del cuello uterino.
+
+La primera es una pala que raspa ligeramente el exocérvix.
+
+La segunda es un cepillito que toma la muestra del endocérvix.
+
+[[Raspar el exocérvix]]
+
+:: Introducción del cepillito para recolectar la muestra en el endocérvix
+Se toma la muestra pero esta véz con un cepillo o hisopo. Se esparcé también en el cristal, se fijan con el gel fijador y se serciora que estén marcadas con el nombre de la paciente.
+
+[[Retiro del espéculo]]
+
+:: Retiro del espéculo
+Se quita el seguro, se vuelve a rotar hasta que quede a 45° para cerrarlo y se extrae del canal vaginal con gentiliza, procurando no lastimar a la paciente.
+
+[[Fin de la prueba y reincorporación de la paciente]]
+
+:: Fin de la prueba y reincorporación de la paciente[dialogue end]
+Se ayuda a la paciente a levantarse de la camilla y reincorporarse.
+
+Doctor: "Ha finalizado la toma de muestras. Puede estar eperando los resultados en los siguientes 10 días."
+
+Ana Sofía: "Muchas gracias doctor."
+
+:: Acomodar el espéculo a la base del introito vaginal[condition]
+Se procede a insertar el espéculo en el canal vaginal. La herramienta se introduce a 45 grados suave y sin ejercer mucha presión.
+
+[[Se gira y se abre el espéculo]] 
+[[Se introduce recto]]
+
+:: Buenas tardes señora, ¿cómo se llama?[dialogue]
+
+
+
+@
+Ana Sofia: Buenas tardes doctor. Mi nombre es Ana Sofía García.
+Vengo a hacerme una toma de citología.
+
+Por supuesto. Permítame los siguientes datos:
+[[Anamnesis y llenado de formulario]]
+{
+BotonContinuar.Oprimido()
+Simulador.Wait(2)
+}
+<
+Personaje1Controller.MirarJugador(true)
+Simulador.Wait(2)
+>
+
+:: 1:La paciente puede proceder con el procedimiento[multipleChoice]
+Los resultados muestras que la paciente puede proceder con el procedimiento. ¿Qué opina el usuario?
+
+[[BtnProceder.Oprimido():Proceder con la citología oprimiendo el botón "Proceder" (Caso correcto)]]
+[[BtnCancelar.Oprimido():No proceder con la citología oprimiendo el botón "Cancelar" (Caso incorrecto)]]
+{
+BtnProceder.Oprimido()
+BtnCancelar.Oprimido()
+}
+<>
+
+
+:: 2:La paciente NO puede proceder con el procedimiento[multipleChoice]
+Los resultados muestras que la paciente no puede proceder con el procedimiento. ¿Qué opina el usuario?
+
+[[BtnProceder.Oprimido():Proceder con la citología oprimiendo el botón "Proceder" (Caso incorrecto)]]
+[[BtnCancelar.Oprimido():No proceder con la citología oprimiendo el botón "Cancelar" (Caso correcto)]]
+{
+BtnProceder.Oprimido()
+BtnCancelar.Oprimido()
+}
+<>
+
+:: Anamnesis y llenado de formulario[random]
+El personal de salud diligencia el formulario, garantizando que las muestras tomadas pertenecen a la paciente.
+Formulario de identificación:
+
+- Número de cédula
+- Edad y fecha de nacimiento
+
+Antecedentes:
+- Fecha de última menstruación
+- Número de parejas sexuales
+- Método de planificación
+- Número de embarazos, abortos, partos y cesareas
+- ¿Ha tenido enfermedades en el cuello uterino?
+- ¿Ha recibido tratamiento para alguna enfermedad del cuello uterino?
+- ¿Es su primera citología? En caso de no serlo, ¿cuando fue su última citología?
+	- Citologías normales
+	- Citologías anormales
+-  Citologías por control anual o de enfermedad
+
+Casos en los que NO se puede realizar el examen:
+- Tuvo relaciones 3 días antes
+- Duchas vaginales
+- Cremas vaginales
+- Óvulos vaginales
+- Embarazos con amenaza de aborto
+
+@
+
+[[1:La paciente puede proceder con el procedimiento]]
+[[2:La paciente NO puede proceder con el procedimiento]]
+{}
+<
+Personaje1Controller.MirarJugador(true)
+Simulador.Wait(2)
+>
+
+:: Se introduce recto
+El espéculo no fue manejado apropiadamente y la paciente sufre de mucha presión en el canal vaginal.
+
+[[Acomodar el espéculo a la base del introito vaginal]]
+
+:: Raspar el exocérvix
+La primera espátula hace una recolección en sentido manecillas del reloj.
+
+El movimiento es en forma circular.
+Después del giro se saca la pala, se coloca en la laminilla y sigue el cepillito.
+
+[[Introducción del cepillito para recolectar la muestra en el endocérvix]]
+
+:: Reconocimiento de la paciente[dialogue]
+Double-click this passage to edit it.
+
+
+
+@
+[[Buenas tardes señora, ¿cómo se llama?]]
+{}
+<
+Simulador.OpenDialogueViewer()
+Personaje1Controller.MirarJugador(true)
+Simulador.Wait(2)
+>
+
+:: BtnProceder.Oprimido():Proceder con la citología oprimiendo el botón "Proceder" (Caso incorrecto)[end]
+Al usuario se le prohibe proceder y se le avisa que no es la opción correcta en el caso.
+
+:: BtnCancelar.Oprimido():No proceder con la citología oprimiendo el botón "Cancelar" (Caso correcto)[end]
+Al usuario se le avisa que tomó la decision acertada y en ese caso ahí acabaría el proceso.
+
+:: BtnProceder.Oprimido():Proceder con la citología oprimiendo el botón "Proceder" (Caso correcto)[random]
+No se cumple ningún requisito que prohíba la prueba.
+Se espifica si es un estudio de tamizaje de rutina.
+
+@
+[[Estudio de tamizaje (rutina)]]
+[[Control enfermedad previa]]
+{}
+<
+Personaje1Controller.MirarJugador(true)
+Simulador.Wait(2)
+>
+
+
+:: BtnCancelar.Oprimido():No proceder con la citología oprimiendo el botón "Cancelar" (Caso incorrecto)[end]
+Al usuario se le avisa que no es la opción correcta en el caso.
